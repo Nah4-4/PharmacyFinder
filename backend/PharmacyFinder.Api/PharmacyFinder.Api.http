@@ -1,0 +1,6 @@
+@PharmacyFinder.Api_HostAddress = http://localhost:5016
+
+GET {{PharmacyFinder.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
