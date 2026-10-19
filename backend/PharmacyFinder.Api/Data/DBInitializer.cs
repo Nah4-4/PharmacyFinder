@@ -1,68 +1,70 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PharmacyFinder.Api.Enums;
 using PharmacyFinder.Api.Models;
 
 namespace PharmacyFinder.Api.Data;
 
 public static class DbInitializer
 {
-    public static async Task SeedAsync(PFContext context)
+    public static async Task SeedAsync(PFContext context, UserManager<User> userManager)
     {
         await context.Database.MigrateAsync();
 
         if (await context.Users.AnyAsync())
             return;
 
-        var defaultPasswordHash = new PasswordHasher<User>().HashPassword(
-            new User(),
-            "Password123"
-        );
-
         var admin = new User
         {
+            UserName = "admin@pharmacyfinder.com",
             FullName = "System Administrator",
             Email = "admin@pharmacyfinder.com",
-            PasswordHash = defaultPasswordHash,
-            Role = "Admin",
+            Role = UserRole.Admin,
         };
 
         var owner1 = new User
         {
+            UserName = "owner1@pharmacyfinder.com",
             FullName = "Abebe Kebede",
             Email = "owner1@pharmacyfinder.com",
-            PasswordHash = defaultPasswordHash,
-            Role = "PharmacyOwner",
+            Role = UserRole.PharmacyOwner,
         };
 
         var owner2 = new User
         {
+            UserName = "owner2@pharmacyfinder.com",
             FullName = "Sara Tadesse",
             Email = "owner2@pharmacyfinder.com",
-            PasswordHash = defaultPasswordHash,
-            Role = "PharmacyOwner",
+            Role = UserRole.PharmacyOwner,
         };
 
         var customer = new User
         {
+            UserName = "customer@pharmacyfinder.com",
             FullName = "Test Customer",
             Email = "customer@pharmacyfinder.com",
-            PasswordHash = defaultPasswordHash,
-            Role = "Customer",
+            Role = UserRole.Customer,
         };
 
-        context.Users.AddRange(admin, owner1, owner2, customer);
-        await context.SaveChangesAsync();
+        foreach (var user in new[] { admin, owner1, owner2, customer })
+        {
+            var result = await userManager.CreateAsync(user, "Password123");
+            if (!result.Succeeded)
+                throw new InvalidOperationException(
+                    $"Unable to seed user {user.Email}: " +
+                    string.Join(", ", result.Errors.Select(error => error.Description)));
+        }
 
         var medicines = new List<Medicine>
         {
-            new() { Name = "Amoxicillin" },
-            new() { Name = "Paracetamol" },
-            new() { Name = "Advil" },
-            new() { Name = "Zithromax" },
-            new() { Name = "Omeprazole" },
-            new() { Name = "Metformin" },
-            new() { Name = "Cipro" },
-            new() { Name = "Zyrtec" },
+            new() { Name = "Amoxicillin", DosageType = "500 mg capsule" },
+            new() { Name = "Paracetamol", DosageType = "500 mg tablet" },
+            new() { Name = "Advil", DosageType = "200 mg tablet" },
+            new() { Name = "Zithromax", DosageType = "250 mg tablet" },
+            new() { Name = "Omeprazole", DosageType = "300 mg injection" },
+            new() { Name = "Metformin", DosageType = "500 mg tablet" },
+            new() { Name = "Cipro", DosageType = "500 mg tablet" },
+            new() { Name = "Zyrtec", DosageType = "10 mg tablet" },
         };
 
         context.Medicines.AddRange(medicines);
@@ -80,7 +82,7 @@ public static class DbInitializer
                 Latitude = 8.9976,
                 Longitude = 38.7868,
                 OperatingHours = "24 Hours",
-                ApprovalStatus = "Approved",
+                ApprovalStatus = ApprovalStatus.Approved,
             },
             new()
             {
@@ -92,7 +94,7 @@ public static class DbInitializer
                 Latitude = 9.0158,
                 Longitude = 38.7681,
                 OperatingHours = "08:00 AM - 10:00 PM",
-                ApprovalStatus = "Approved",
+                ApprovalStatus = ApprovalStatus.Approved,
             },
             new()
             {
@@ -104,7 +106,7 @@ public static class DbInitializer
                 Latitude = 9.0205,
                 Longitude = 38.8024,
                 OperatingHours = "07:30 AM - 09:30 PM",
-                ApprovalStatus = "Approved",
+                ApprovalStatus = ApprovalStatus.Approved,
             },
             new()
             {
@@ -116,7 +118,7 @@ public static class DbInitializer
                 Latitude = 9.0104,
                 Longitude = 38.7445,
                 OperatingHours = "24 Hours",
-                ApprovalStatus = "Approved",
+                ApprovalStatus = ApprovalStatus.Approved,
             },
             new()
             {
@@ -128,7 +130,7 @@ public static class DbInitializer
                 Latitude = 9.0331,
                 Longitude = 38.7501,
                 OperatingHours = "08:00 AM - 08:00 PM",
-                ApprovalStatus = "Pending",
+                ApprovalStatus = ApprovalStatus.Pending,
             },
         };
 

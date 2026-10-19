@@ -1,12 +1,14 @@
 using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PharmacyFinder.Api.Models;
 
 namespace PharmacyFinder.Api.Data;
 
-public class PFContext(DbContextOptions<PFContext> options) : DbContext(options)
+public class PFContext(DbContextOptions<PFContext> options)
+    : IdentityDbContext<User, IdentityRole<int>, int>(options)
 {
-    public DbSet<User> Users => Set<User>();
     public DbSet<Pharmacy> Pharmacies => Set<Pharmacy>();
     public DbSet<Medicine> Medicines => Set<Medicine>();
     public DbSet<PharmacyStock> PharmacyStocks => Set<PharmacyStock>();
@@ -18,6 +20,12 @@ public class PFContext(DbContextOptions<PFContext> options) : DbContext(options)
 
         modelBuilder.Entity<User>(entity =>
         {
+            entity.Property(user => user.Email)
+                .HasMaxLength(200);
+
+            entity.Property(user => user.Role)
+                .HasConversion<string>();
+
             entity.HasIndex(user => user.Email)
                 .IsUnique();
 
@@ -29,6 +37,9 @@ public class PFContext(DbContextOptions<PFContext> options) : DbContext(options)
 
         modelBuilder.Entity<Pharmacy>(entity =>
         {
+            entity.Property(pharmacy => pharmacy.ApprovalStatus)
+                .HasConversion<string>();
+
             entity.HasIndex(pharmacy => pharmacy.LicenseNumber)
                 .IsUnique();
 

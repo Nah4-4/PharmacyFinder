@@ -1,18 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
+using PharmacyFinder.Api.Enums;
 
 namespace PharmacyFinder.Api.Models;
 
-public class User
+public class User : IdentityUser<int>
 {
-    public int Id { set; get; }
     [Required, MaxLength(100)]
     public string FullName { get; set; }=string.Empty;
-    [Required, MaxLength(200), EmailAddress]
-    public string Email { get; set; } = string.Empty;
-    [Required]
-    public string PasswordHash { get; set; } = string.Empty;
-    [Required]
-    public string Role { get; set; } = string.Empty;
+    public UserRole Role { get; set; } = UserRole.Customer;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Pharmacy> Pharmacies { get; set; } = new List<Pharmacy>();

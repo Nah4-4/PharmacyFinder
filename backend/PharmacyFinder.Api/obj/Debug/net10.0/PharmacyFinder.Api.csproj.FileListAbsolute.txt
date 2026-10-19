@@ -163,3 +163,10 @@ C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\
 C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\obj\Debug\net10.0\PharmacyFinder.Api.pdb
 C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\obj\Debug\net10.0\PharmacyFinder.Api.genruntimeconfig.cache
 C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\obj\Debug\net10.0\ref\PharmacyFinder.Api.dll
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\obj\Debug\net10.0\PharmacyFinder.Api.sourcelink.json
+C:\Users\Nahom\Documents\Prog\DAFtech\PharmacyFinder\backend\PharmacyFinder.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
